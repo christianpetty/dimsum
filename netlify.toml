@@ -1,0 +1,7 @@
+# example netlify.toml
+[build]
+  command = "# no build command"
+  functions = "netlify/functions"
+  publish = ""
+
+# https://docs.netlify.com/configure-builds/file-based-configuration/
