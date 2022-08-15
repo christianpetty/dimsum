@@ -45,6 +45,6 @@ $$T_{assy}^{RSS}\text{(Bender 1968)}=1.5\cdot{}T^{RSS}_{assy}$$
 ## Example
 This CAD is referenced as an example.
 
-https://cad.onshape.com/documents/2cdf3ec9a48d2dc333b071db/w/962d4b694777873f554dd56f/e/e47ffd0abc92078010ae7423
+(https://cad.onshape.com/documents/2cdf3ec9a48d2dc333b071db/w/962d4b694777873f554dd56f/e/e47ffd0abc92078010ae7423)
 
-[^1]: Scholz, Fritz. Boeing Information & Support Services, 1995, _[[Tolerance Stack Analysis Methods.pdf|Tolerance Stack Analysis Methods]]_.
+[^1]: Scholz, Fritz. Boeing Information & Support Services, 1995, _Tolerance Stack Analysis Methods.pdf|Tolerance Stack Analysis Methods_.
