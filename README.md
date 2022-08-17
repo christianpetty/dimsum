@@ -1,7 +1,4 @@
-# Dim Sum
-
-## Purpose
-The purpose of this project is to create a library for performing mechanical tolerance stack analyses, and associated graphical tools for creating, manipulating, and reporting them.
+# Dimension Summation
 
 ## Features
 
