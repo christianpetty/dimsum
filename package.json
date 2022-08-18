@@ -4,5 +4,24 @@
   },
   "volta": {
     "node": "16.16.0"
-  }
+  },
+  "type": "module",
+  "name": "dimsum",
+  "description": "",
+  "version": "0.0.1",
+  "main": "dimsum.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianpetty/dimsum.git"
+  },
+  "author": "Christian Petty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christianpetty/dimsum/issues"
+  },
+  "homepage": "https://github.com/christianpetty/dimsum#readme"
 }

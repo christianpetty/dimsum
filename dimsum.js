@@ -3,7 +3,7 @@
 // MIT License
 
 // Precise floating point operations
-const Decimal = require('decimal.js');
+import Decimal from 'decimal.js';
 Decimal.set({
     precision: 20
 });
@@ -140,13 +140,13 @@ class Dim {
     }
 }
 
-class SymmetricDim extends Dim {
+class DimSymmetric extends Dim {
     constructor(nominal, symmetricTolerance) {
         super(new Decimal(nominal), new Decimal(symmetricTolerance));
     }
 }
 
-class BilateralDim extends Dim {
+class DimBilateral extends Dim {
     constructor(nominal, tolerance1, tolerance2) {
         let upperLimit = new Decimal(nominal + Math.max(tolerance1, tolerance2));
         let lowerLimit = new Decimal(nominal + Math.min(tolerance1, tolerance2));
@@ -157,7 +157,7 @@ class BilateralDim extends Dim {
     }
 }
 
-class LimitsDim extends Dim {
+class DimLimits extends Dim {
     constructor(upperLimit, lowerLimit) {
         upperLimit = new Decimal(upperLimit);
         lowerLimit = new Decimal(lowerLimit);
@@ -168,7 +168,7 @@ class LimitsDim extends Dim {
     }
 }
 
-class BandDim extends Dim {
+class DimBand extends Dim {
     constructor(nominal, band) {
         super(new Decimal(nominal), new Decimal(band).dividedBy(2));
     }
@@ -186,16 +186,4 @@ function formatDecimal(decimal) {
     return decimal.toDP(decimalPlaces);
 }
 
-var stack1 = new Stack("Stack 1", "in");
-
-stack1.addFeature("Pedestal to datum A", new BilateralDim(.750, +.010, -.015), -1);
-stack1.addFeature("Datum A to boss", new BandDim(3.25, .005), 1);
-stack1.addFeature("Boss in hole", new AssemblyShift(new BilateralDim(.625, +0, -0.010), new SymmetricDim(.750, .010)), 1);
-stack1.addFeature("Distance from hole to edge", new SymmetricDim(1.75, .015), -1);
-stack1.addFeature("Thickness of lug", new SymmetricDim(0.75, .005), 1);
-stack1.addFeature("Thickness of washer", new LimitsDim(.135, .120), 1);
-stack1.addFeature("Length of fastener", new SymmetricDim(1.25, .005), -1);
-
-var analysis1 = new Analysis(stack1);
-
-analysis1.run();
+export default {Analysis, Stack, DimSymmetric, DimBilateral, DimLimits, DimBand, AssemblyShift};
