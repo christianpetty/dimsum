@@ -10,20 +10,22 @@ Decimal.set({
 
 // Maximum decimals to display in console outputs
 const decimalPlaces = 4;
-const monteCarloIterations = 1000;
+const monteCarloIterations = 10000;
 
 class Analysis {
 
-    constructor(stack) {
+    constructor(stack, goal) {
         this.stack = stack;
         this.featureList = this.stack.featureList;
         this.featureCount = this.featureList.length;
         this.outputSummary = [];
+        this.goal = goal;
     }
 
     run() {
         console.log(`NAME: ${this.stack.name}`);
         console.log(`UNITS: ${this.stack.units}`);
+        console.log(`GOAL: ${this.goal.lowerLimit} - ${this.goal.upperLimit}`);
         this.arithmeticMethod();
         this.monteCarloMethod(monteCarloIterations);
         this.displayResults();
@@ -45,9 +47,9 @@ class Analysis {
             tolSquaredSum = tolSquaredSum.plus(Decimal.pow(tol,2));
         }
         tolRSS = Decimal.sqrt(tolSquaredSum);
-        this.outputSummary.push(new Output("Worst Case", shift.minus(tolSum), shift, shift.plus(tolSum)));
-        this.outputSummary.push(new Output("RSS", shift.minus(tolRSS), shift, shift.plus(tolRSS)));
-        this.outputSummary.push(new Output("Bender 1.5 * RSS", shift.minus(tolRSS.times(1.5)), shift, shift.plus(tolRSS.times(1.5))));
+        this.outputSummary.push(new Output("Worst Case", shift.minus(tolSum), shift, shift.plus(tolSum), this.goal));
+        this.outputSummary.push(new Output("RSS", shift.minus(tolRSS), shift, shift.plus(tolRSS), this.goal));
+        this.outputSummary.push(new Output("Bender 1.5 * RSS", shift.minus(tolRSS.times(1.5)), shift, shift.plus(tolRSS.times(1.5)), this.goal));
         this.updateContributions(tolSum);
     }
 
@@ -75,7 +77,7 @@ class Analysis {
         let average = monteCarloSum.dividedBy(iterations);
         let minimum = Decimal.min(...monteCarloResults);
         let maximum = Decimal.max(...monteCarloResults);
-        this.outputSummary.push(new Output("Monte Carlo", minimum, average, maximum))
+        this.outputSummary.push(new Output("Monte Carlo", minimum, average, maximum, this.goal))
     }
     
     // Update contribution property for each feature
@@ -90,18 +92,33 @@ class Analysis {
         console.log(`INPUTS: ${this.featureList.length}`);
         console.table(this.featureList, ["name", "alpha", "tol", "lowerLimit", "nominal", "upperLimit", "contribution"]);
         console.log(`OUTPUTS: ${this.outputSummary.length}`);
-        console.table(this.outputSummary, ["name", "lowerLimit", "center", "upperLimit"]);
+        console.table(this.outputSummary, ["name", "lowerLimit", "center", "upperLimit", "goalMet"]);
         console.log(`Monte Carlo Iterations: ${monteCarloIterations}`);
     }
 
 }
 
 class Output {
-    constructor(name, lowerLimit, center, upperLimit) {
+    constructor(name, lowerLimit, center, upperLimit, goal) {
         this.name = name;
-        this.lowerLimit = formatDecimal(lowerLimit);
-        this.center = formatDecimal(center);
-        this.upperLimit = formatDecimal(upperLimit);
+        this.goal = goal;
+        this.center = center;
+        this.upperLimit = upperLimit;
+        this.lowerLimit = lowerLimit;
+
+        this.goalMet = this.checkGoal();
+
+        this.center = formatDecimal(this.center);
+        this.upperLimit = formatDecimal(this.upperLimit);
+        this.lowerLimit = formatDecimal(this.lowerLimit);
+    }
+
+    checkGoal() {
+        if (this.lowerLimit.greaterThanOrEqualTo(this.goal.lowerLimit) && this.upperLimit.lessThanOrEqualTo(this.goal.upperLimit)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -114,6 +131,13 @@ class Stack {
 
     addFeature(name, dimension, alpha) {
         this.featureList.push(new Feature(name, dimension, alpha));
+    }
+}
+
+class Goal {
+    constructor(boundA, boundB) {
+        this.upperLimit = Decimal.max(boundA, boundB);
+        this.lowerLimit = Decimal.min(boundA, boundB);
     }
 }
 
@@ -186,4 +210,4 @@ function formatDecimal(decimal) {
     return decimal.toDP(decimalPlaces);
 }
 
-export default {Analysis, Stack, DimSymmetric, DimBilateral, DimLimits, DimBand, AssemblyShift};
+export default {Analysis, Stack, Goal, DimSymmetric, DimBilateral, DimLimits, DimBand, AssemblyShift};
