@@ -20,12 +20,13 @@ class Analysis {
         this.featureCount = this.featureList.length;
         this.outputSummary = [];
         this.goal = goal;
+        this.monteCarloFailures = 0;
     }
 
     run() {
         console.log(`NAME: ${this.stack.name}`);
         console.log(`UNITS: ${this.stack.units}`);
-        console.log(`GOAL: ${this.goal.lowerLimit} - ${this.goal.upperLimit}`);
+        console.log(`GOAL: {${this.goal.lowerLimit} - ${this.goal.upperLimit}} ${this.goal.units}`);
         this.arithmeticMethod();
         this.monteCarloMethod(monteCarloIterations);
         this.displayResults();
@@ -57,6 +58,7 @@ class Analysis {
     monteCarloMethod(iterations) {
         let monteCarloResults = [];
         let monteCarloSum = new Decimal(0);
+        let failureCount = 0;
         for (let i = 0; i < iterations; i++) {
             let singleResult = Decimal(0);
             for (let j = 0; j < this.featureList.length; j++) {
@@ -71,12 +73,16 @@ class Analysis {
                 let randomDim = lowerServiceLimit.plus(randomNumber.times(upperServiceLimit.minus(lowerServiceLimit)));
                 singleResult = singleResult.plus(randomDim.times(alpha));
             }
+            if (singleResult.lessThanOrEqualTo(this.goal.lowerLimit) || singleResult.greaterThanOrEqualTo(this.goal.upperLimit)) {
+                failureCount++;
+            }
             monteCarloResults.push(singleResult);
             monteCarloSum = monteCarloSum.plus(singleResult)
         }
         let average = monteCarloSum.dividedBy(iterations);
         let minimum = Decimal.min(...monteCarloResults);
         let maximum = Decimal.max(...monteCarloResults);
+        this.monteCarloFailures = failureCount;
         this.outputSummary.push(new Output("Monte Carlo", minimum, average, maximum, this.goal))
     }
     
@@ -93,7 +99,7 @@ class Analysis {
         console.table(this.featureList, ["name", "alpha", "tol", "lowerLimit", "nominal", "upperLimit", "contribution"]);
         console.log(`OUTPUTS: ${this.outputSummary.length}`);
         console.table(this.outputSummary, ["name", "lowerLimit", "center", "upperLimit", "goalMet"]);
-        console.log(`Monte Carlo Iterations: ${monteCarloIterations}`);
+        console.log(`MONTE CARLO: ${this.monteCarloFailures} failures in ${monteCarloIterations} iterations.`);
     }
 
 }
@@ -135,9 +141,10 @@ class Stack {
 }
 
 class Goal {
-    constructor(boundA, boundB) {
+    constructor(boundA, boundB, units) {
         this.upperLimit = Decimal.max(boundA, boundB);
         this.lowerLimit = Decimal.min(boundA, boundB);
+        this.units = units;
     }
 }
 

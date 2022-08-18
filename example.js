@@ -10,6 +10,6 @@ stack1.addFeature("Thickness of lug", new DimSum.DimSymmetric(0.75, .005), 1);
 stack1.addFeature("Thickness of washer", new DimSum.DimLimits(.135, .120), 1);
 stack1.addFeature("Length of fastener", new DimSum.DimSymmetric(1.25, .005), -1);
 
-var analysis1 = new DimSum.Analysis(stack1, new DimSum.Goal(0.27, 0.48));
+var analysis1 = new DimSum.Analysis(stack1, new DimSum.Goal(0, 0.48, "in"));
 
 analysis1.run();
