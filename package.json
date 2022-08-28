@@ -9,10 +9,14 @@
   "name": "dimsum",
   "description": "",
   "version": "0.0.1",
-  "main": "dimsum.js",
-  "devDependencies": {},
+  "main": "dimsum.ts",
+  "devDependencies": {
+    "typescript": "^4.8.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "repository": {
     "type": "git",
