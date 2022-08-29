@@ -1,9 +1,9 @@
-// Tolerance Stack Analysis Tool
+// dimsum.js
 // Copyright (C) 2022 - Present Christian Petty
 // MIT License
 
 // Precise floating point operations
-import {Decimal} from 'decimal.js';
+import { Decimal } from 'decimal.js';
 Decimal.set({
     precision: 20
 });
@@ -158,9 +158,9 @@ class Stack {
 }
 
 class Goal {
-upperLimit: Decimal;
-lowerLimit: Decimal;
-units: string;
+    upperLimit: Decimal;
+    lowerLimit: Decimal;
+    units: string;
 
     constructor(boundA, boundB, units) {
         this.upperLimit = Decimal.max(boundA, boundB);
