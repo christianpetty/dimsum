@@ -1,12 +1,26 @@
-body{
-  margin: 0;
+:root {
+  --green: rgb(220, 253, 189);
+  --black: #131313;
 }
+
+body {
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: var(--black);
+  text-align: center;
+  max-width: 740px;
+  margin: auto;
+}
+
 h1 {
   margin: 0;
 }
+
 p {
   margin: 0;
 }
+
 .website-wrapper {
   height: 100vh;
   width: 100%;
