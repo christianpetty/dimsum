@@ -1,0 +1,48 @@
+Deep Dive
+
+- Embedded
+- Draggable
+- Cloud
+- Encoded URLs
+- Privacy
+- ITAR
+- EAR
+- Dimensions
+- Datums
+- 1D
+    - Wall, surface, etc. are really all just lines?
+- 2D
+- 3D
+- Limit
+- Deviation
+- Symmetric
+- Basic
+- GD&T
+- Tolerance
+- Frame
+- Worst-case
+- RSS
+- 1.5 RSS
+- Cpk
+- Non-normal distributions
+- Non-centered distributions
+- Hole alignment
+- Fasteners
+- Bosses and pockets
+- Onshape
+- Onshape features
+- Cloud storage for analyses
+- E2E encryption
+- Images
+- Image markup with engineering symbols, lines, text, etc.
+- Plot/visualize stack back on dimensions
+- Share dimensions and datums between multiple stacks
+- Units
+- Colors
+- Monte Carlo
+- Superposition of accuracy
+- Compare actual data to the spec to show the difference
+- Dimension stacking tool e.g. show how several lengths line up (see Excel sheet)
+- Upload stackup image and allow overlay with draggable datums from stackup. Fix in place.
+- Floating connections
+- Printable reports
