@@ -1,4 +1,4 @@
-// Tolerance Stack Analysis Tool
+// dimsum.js
 // Copyright (C) 2022 - Present Christian Petty
 // MIT License
 // Precise floating point operations
