@@ -15,6 +15,20 @@
 - CLI
     - Output dimension table and results to console
 
+## Current Progress
+
+![Console](cli.png)
+
+```js
+stack1.addFeature("Pedestal to datum A", new DimSum.DimBilateral(.750, +.010, -.015), -1);
+stack1.addFeature("Datum A to boss", new DimSum.DimBand(3.25, .005), 1);
+stack1.addFeature("Boss in hole", new DimSum.AssemblyShift(new DimSum.DimBilateral(.625, +0, -0.010), new DimSum.DimSymmetric(.750, .010)), 1);
+stack1.addFeature("Distance from hole to edge", new DimSum.DimSymmetric(1.75, .015), -1);
+stack1.addFeature("Thickness of lug", new DimSum.DimSymmetric(0.75, .005), 1);
+stack1.addFeature("Thickness of washer", new DimSum.DimLimits(.135, .120), 1);
+stack1.addFeature("Length of fastener", new DimSum.DimSymmetric(1.25, .005), -1);
+```
+
 ## Tolerance Stack Analysis
 A tolerance stack analysis is a means of investigating how parts fit when real-world variability is considered. The possibilities can quickly become infinite if you begin considering how things fit in 3D space. This tool focuses on 1D analyses as a start. Part of the design process is reconsidering how things are dimensioned and controlled to produce simpler and cheaper designs. If you truly need a multi-dimensional and it cannot be broken down into separate 1D analyses, please refer to the alternate proprietary tools below.
 
