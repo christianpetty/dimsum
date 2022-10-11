@@ -1,0 +1,11 @@
+Bilateral .750 +.010 -.015 "Pedestal to datum A" -1
+Band 3.25 .005 "Datum A to boss" 1
+Shift {
+    Bilateral .625 +0 -0.010 "Pin"
+    Symmetric .750 .010 "Hole"
+}
+Symmetric 1.75 .015 "Distance from hole to edge" -1
+Symmetric 0.75 .005 "Thickness of lug" 1
+Limits .135 .120 "Thickness of washer" 1
+Symmetric 1.25 .005 "Length of fastener" -1
+
